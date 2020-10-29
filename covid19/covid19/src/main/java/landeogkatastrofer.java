@@ -2,7 +2,7 @@ import processing.core.PApplet;
 import processing.data.Table;
 
 import java.util.ArrayList;
-
+//Bazinga min guttermand
 public class landeogkatastrofer extends PApplet {
 
 DataBroker data;
