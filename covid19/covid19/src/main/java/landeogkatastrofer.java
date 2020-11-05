@@ -7,10 +7,10 @@ public class landeogkatastrofer extends PApplet {
 
 DataBroker data;
 String Infofelt = "Land: " + "\nÅR: " +  "\nDøde: ";
-TextFlet lande;
-TextFlet aar;
+TextFlet year,day, mounths;
 Table table;
 Plot plot;
+String ChosenDate = " ";
 PieChart chart = new PieChart(this);
 
 
@@ -23,48 +23,53 @@ PieChart chart = new PieChart(this);
 
     @Override
     public void setup() {
-        table = loadTable("csv-deaths-natural-disasters.csv");
+        table = loadTable("owid-covid-data.csv");
         data = new DataBroker(this, table );
 
         data.loadData();
-        lande = new TextFlet(this,  width / 12, (int) (height / 12  ), width / 4, height / 12, "Country");
-        aar = new TextFlet(this,  width / 12 + width / 4 + 20, (int) (height / 12  ) , width / 4, height / 12, "year");
-        aar.setAcceptLetter(false);
-        plot = new Plot(this,width/8, height/3, (width - width/4), height/2);
-        println(data.getData("AFGHANISTAN", 2014));
+        year = new TextFlet(this,  width / 12, (int) (height / 12  ), width / 4, height / 12, "Year");
+        day = new TextFlet(this,  width / 12 + width / 4 + 20, (int) (height / 12  ) , width / 4, height / 12, "Day");
+        mounths = new TextFlet(this,  width / 12 + width / 4 + 20, (int) (height / 12  ) + 200 , width / 4 + height / 12, height / 12, "mounths");
+        //plot = new Plot(this,width/8, height/3, (width - width/4), height/2);
+       // println(data.getData("AFGHANISTAN", 2014));
+        year.indput = "2020";
+        Infofelt = "Year: " + year.indput + "\nDay: " + day.indput + "\nmouths: " + mounths.indput + "\nTotal Deaths: " + data.getAllDeaths(ChosenDate);
     }
 
     @Override
     public void draw() {
-        plot.setArraylist(data.Datalist, lande.indput);
+
         clear();
         background(200);
-        plot.draw();
-        lande.tegnTextFlet();
-        aar.tegnTextFlet();
+        //plot.draw();
+        year.tegnTextFlet();
+        day.tegnTextFlet();
+        mounths.tegnTextFlet();
 
         text(Infofelt,width - width / 4, height / 12  );
 
-
+        System.out.println(data.getAllDeaths(ChosenDate) + " " + ChosenDate);
 
     }
 
     @Override
     public void mouseClicked() {
-        lande.KlikTjek(mouseX,mouseY);
-        aar.KlikTjek(mouseX,mouseY);
-        plot.clicked(mouseX,mouseY);
+        year.KlikTjek(mouseX,mouseY);
+        day.KlikTjek(mouseX,mouseY);
+        mounths.KlikTjek(mouseX,mouseY);
+        //plot.clicked(mouseX,mouseY);
     }
 
     @Override
     public void keyTyped() {
-        lande.keyindput(key);
-        aar.keyindput(key);
+        year.keyindput(key);
+        day.keyindput(key);
+        mounths.keyindput(key);
         int aarInt = 0;
-        plot.deathGraph = new ProcGraph(this,plot.posX, plot.posY, plot.xSize, plot.ySize, 1);
-        if (aar.indput.length() > 0)
-            aarInt = Integer.parseInt(aar.indput);
-        Infofelt = "Land: " + lande.indput + "\nÅR: " + aar.indput + "\nDøde: " + data.getData(lande.indput, aarInt);
+//        plot.deathGraph = new ProcGraph(this,plot.posX, plot.posY, plot.xSize, plot.ySize, 1);
+        //if (year.indput.length() > 0)
+           // aarInt = Integer.parseInt(aar.indput);
 
+        ChosenDate = year.indput + "-"+mounths.indput+"-"+day.indput;
     }
 }
