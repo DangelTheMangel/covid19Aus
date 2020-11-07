@@ -73,6 +73,7 @@ PieChart chart = new PieChart(this);
 
     @Override
     public void mouseClicked() {
+        System.out.println(graphTopic[chosenColon]);
         year.KlikTjek(mouseX,mouseY);
         day.KlikTjek(mouseX,mouseY);
         mounths.KlikTjek(mouseX,mouseY);
@@ -88,6 +89,8 @@ PieChart chart = new PieChart(this);
             } else {
                 chosenColon = graphTopic.length-1;
             }
+            plot.deathGraph.maxY = Integer.MIN_VALUE;
+            plot.pillarChart.maxY = Integer.MIN_VALUE;
             plot.deathGraph.colon = graphTopic[chosenColon];
             plot.pillarChart.colon = graphTopic[chosenColon];
             plot.colon = graphTopic[chosenColon];
@@ -100,10 +103,14 @@ PieChart chart = new PieChart(this);
             } else {
                 chosenColon = 0;
             }
-
-            plot.colon = graphTopic[chosenColon];
+            plot.deathGraph.maxY = Integer.MIN_VALUE;
+            plot.pillarChart.maxY = Integer.MIN_VALUE;
             plot.deathGraph.colon = graphTopic[chosenColon];
             plot.pillarChart.colon = graphTopic[chosenColon];
+            plot.colon = graphTopic[chosenColon];
+
+          /*  plot.deathGraph = new ProcGraph(this,plot.posX,plot.posY,plot.xSize,plot.ySize,graphTopic[chosenColon]);
+            plot.pillarChart = new PillarChart(this,plot.posX,plot.posY,plot.xSize,plot.ySize,graphTopic[chosenColon]);*/
             btnColonUp.registrerRelease();
         }
 
