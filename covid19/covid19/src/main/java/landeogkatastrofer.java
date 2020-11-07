@@ -39,7 +39,7 @@ PieChart chart = new PieChart(this);
        // println(data.getData("AFGHANISTAN", 2014));
         year.indput = "2020";
         plot.deathGraph.inputTable(data.covidData);
-
+        plot.pillarChart.inputTable(data.covidData);
     }
 
     @Override
@@ -83,6 +83,7 @@ PieChart chart = new PieChart(this);
             System.out.println(data.getAllDeaths(ChosenDate) + " " + ChosenDate);
             Infofelt = "Year: " + year.indput + "\nDay: " + day.indput + "\nmouths: " + mounths.indput + "\nTotal Deaths: " + data.getAllDeaths(ChosenDate);
             plot.deathGraph.inputTable(data.covidData);
+            plot.pillarChart.inputTable(data.covidData);
         }
 
 

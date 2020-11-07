@@ -31,6 +31,9 @@ public abstract class Graph  {
     void draw(){
 
     }
+    void inputTable(Table input){
+        table = input;
+    }
 
 
     int getRowFromMouse(int mouseX, int mouseY){

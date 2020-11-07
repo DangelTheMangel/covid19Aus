@@ -11,6 +11,7 @@ public class Plot {
     Axis xAxis;
     Axis yAxis;
     DataBroker dataBroker;
+    int colon = 7;
     AlmindeligKnap btnShowProcGraph, btnShowBarCharts, btnShowLines;
 
     public ArrayList<Data> Datalist = new ArrayList<Data>() ;
@@ -27,8 +28,8 @@ public class Plot {
         this.posX = posX;
         this.posY = posY;
         Datalist.add(new Data("1",1,1));
-        pillarChart = new PillarChart(p,this.posX, this.posY, this.xSize, this.ySize);
-        deathGraph = new ProcGraph(p,this.posX, this.posY, this.xSize, this.ySize, 6);
+        pillarChart = new PillarChart(p,this.posX, this.posY, this.xSize, this.ySize, colon);
+        deathGraph = new ProcGraph(p,this.posX, this.posY, this.xSize, this.ySize, colon);
         btnShowProcGraph = new AlmindeligKnap(p,posX - 50, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Proc graph");
         btnShowBarCharts = new AlmindeligKnap(p,posX - 50 + p.width / 12 + 20, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Bar charts");
         btnShowLines = new AlmindeligKnap(p,posX, posY+ySize + 20,p.width / 12 +20, p.height / 12 ,"Turn off lines");
@@ -60,7 +61,7 @@ public class Plot {
 
         }
         if(btnShowBarCharts.klikket){
-           /* xAxis.maxY = deathGraph.maxY;
+           xAxis.maxY = deathGraph.maxY;
 
 
             yAxis.maxY = deathGraph.maxY;
@@ -72,7 +73,7 @@ public class Plot {
             pillarChart.drawPillarChart(selectetContryList,cName);
             xAxis.draw();
             yAxis.draw();
-            checkMouseCoordinates();      */
+            checkMouseCoordinates();
         }
 
 
@@ -132,16 +133,17 @@ public class Plot {
             p.rect(p.mouseX, p.mouseY, 200,100);
             p.fill(1, 46, 74);
 
-            String msgDeaths = dataBroker.covidData.getString(row,6);
+            String msgDeaths = dataBroker.covidData.getString(row,7);
             String msgDate = dataBroker.covidData.getString(row,3);
             String msgName = dataBroker.covidData.getString(row,2);
+            String msgCases = dataBroker.covidData.getString(row,4);
 
             p.text("Year: " + msgDate , p.mouseX + 10, p.mouseY + 30);
             p.text("Name: " + msgName, p.mouseX + 10, p.mouseY + 50);
-            p.text("Deaths: " + msgDeaths, p.mouseX + 10, p.mouseY + 70);
-
+            p.text("Total Deaths: " + msgDeaths, p.mouseX + 10, p.mouseY + 70);
+            p.text("Total Case: " + msgCases, p.mouseX + 10, p.mouseY + 90);
             int x1 = (int) deathGraph.getXInt() * row;
-            int y1 = ySize - ((int) (deathGraph.table.getInt(row,6) * deathGraph.yInt));
+            int y1 = ySize - ((int) (deathGraph.table.getInt(row,colon) * deathGraph.yInt));
 
             p.ellipse(x1 + posX, y1 + posY,10,10);
 

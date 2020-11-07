@@ -44,8 +44,6 @@ public class ProcGraph extends Graph {
 
         }
 
-        void inputTable(Table input){
-            table = input;
-        }
+
     }
 
