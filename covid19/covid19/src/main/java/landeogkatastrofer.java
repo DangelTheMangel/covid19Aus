@@ -27,10 +27,10 @@ PieChart chart = new PieChart(this);
         data = new DataBroker(this, table );
 
         data.loadData();
-        year = new TextFlet(this,  width / 12, (int) (height / 12  ), width / 4, height / 12, "Year");
-        day = new TextFlet(this,  width / 12 + width / 4 + 20, (int) (height / 12  ) , width / 4, height / 12, "Day");
-        mounths = new TextFlet(this,  width / 12 + width / 4 + 20, (int) (height / 12  ) + 200 , width / 4 + height / 12, height / 12, "mounths");
-        plot = new Plot(this,width/8, height/3, (width - width/4), height/2);
+        year = new TextFlet(this,  width / 24, (int) (height / 12  ), width / 4, height / 12, "Year");
+        day = new TextFlet(this,  width / 24 , (int) (height / 12  ) + height / 12 +20 , width / 4, height / 12, "Day");
+        mounths = new TextFlet(this,  width / 24, (int) (height / 12  ) + (height / 12 +20)*2  , width / 4 , height / 12, "mounths");
+        plot = new Plot(this,width/2 - width/8, height/3, ( width/2), height/4);
        // println(data.getData("AFGHANISTAN", 2014));
         year.indput = "2020";
         plot.deathGraph.inputTable(data.covidData);
@@ -58,7 +58,7 @@ PieChart chart = new PieChart(this);
         year.KlikTjek(mouseX,mouseY);
         day.KlikTjek(mouseX,mouseY);
         mounths.KlikTjek(mouseX,mouseY);
-        //plot.clicked(mouseX,mouseY);
+        plot.clicked(mouseX,mouseY);
     }
 
     @Override
