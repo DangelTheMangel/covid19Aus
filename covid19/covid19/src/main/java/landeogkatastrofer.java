@@ -132,6 +132,8 @@ PieChart chart = new PieChart(this);
             Infofelt = "Year: " + year.indput + "\nDay: " + day.indput + "\nmouths: " + mounths.indput + "\nTotal Deaths: " + data.getAllDeaths(ChosenDate);
             plot.deathGraph.inputTable(data.covidData);
             plot.pillarChart.inputTable(data.covidData);
+            plot.deathGraph.graphStart = plot.getGraphStarter(ChosenDate);
+            plot.pillarChart.graphStart = plot.getGraphStarter(ChosenDate);
         }
 
 

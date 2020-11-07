@@ -11,6 +11,7 @@ public abstract class Graph  {
     int maxY = Integer.MIN_VALUE;
     float xInt;
     float yInt;
+    int graphStart = 0;
     int colon;
     ArrayList<Data> IndputList;
     boolean linesOn = true;

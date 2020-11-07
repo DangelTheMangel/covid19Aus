@@ -150,5 +150,17 @@ public class Plot {
         }
 
     }
+
+    int getGraphStarter(String date){
+       int staterNumb = 0;
+
+       for (int i = 0; i<dataBroker.covidData.getRowCount(); ++i){
+           if(date.equalsIgnoreCase(dataBroker.covidData.getString(i,3))){
+               staterNumb = i;
+           }
+       }
+
+       return staterNumb;
+    }
     }
 

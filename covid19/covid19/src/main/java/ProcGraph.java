@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import processing.data.Table;
 
+
 public class ProcGraph extends Graph {
     ProcGraph(PApplet app, int posX, int posY, int xSize, int ySize, int colon) {
         super(app, posX, posY, xSize, ySize, colon);
@@ -15,7 +16,7 @@ public class ProcGraph extends Graph {
             y1 = ySize;
 
 
-            for (int i=0; i<table.getRowCount(); ++i) {
+            for (int i=graphStart; i<table.getRowCount(); ++i) {
 
                 int maxList = 0;
                 for (int j = 0; j < table.getRowCount(); ++j) {
@@ -25,11 +26,11 @@ public class ProcGraph extends Graph {
                     }
                 }
 
-                xInt = xSize/table.getRowCount();
+                xInt = xSize/(table.getRowCount());
                 yInt = (float) ySize/maxY;
 
 
-                x2 = (int) xInt * i;
+                x2 = (int) xInt * i-graphStart;
                 y2 = ySize - ((int) (table.getInt(i,colon) * yInt));
                 pApplet.stroke(0);
                 if(linesOn) {

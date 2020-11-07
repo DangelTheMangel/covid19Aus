@@ -9,6 +9,7 @@ public class PillarChart {
     float xInt;
     float yInt;
     int colon;
+    int graphStart = 0;
     Table table = new Table();
 
     public PillarChart(PApplet p, int posX, int posY, int xSize, int ySize, int colon) {
@@ -22,7 +23,7 @@ public class PillarChart {
 
     void drawPillarChart(ArrayList<Data> inputlist, String Name){
        int x2;
-        for (int i=0; i<table.getRowCount(); ++i) {
+        for (int i=graphStart; i<table.getRowCount(); ++i) {
 
             int maxList = 0;
             for (int j = 0; j < table.getRowCount(); ++j) {
@@ -33,8 +34,8 @@ public class PillarChart {
             }
 
             xInt = xSize/table.getRowCount();
-            yInt = ySize*table.getInt(i,colon)/maxY;
-            x2 = (int) (posX + xInt*i);
+            yInt = ySize*table.getInt(i -graphStart,colon)/maxY;
+            x2 = (int) (posX + xInt*i -graphStart);
 
             //denne linje driller nogle gange
             p.rect(x2,p.height-(posY + posY/4),xInt,-yInt);
