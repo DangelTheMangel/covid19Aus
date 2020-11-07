@@ -30,10 +30,11 @@ PieChart chart = new PieChart(this);
         year = new TextFlet(this,  width / 12, (int) (height / 12  ), width / 4, height / 12, "Year");
         day = new TextFlet(this,  width / 12 + width / 4 + 20, (int) (height / 12  ) , width / 4, height / 12, "Day");
         mounths = new TextFlet(this,  width / 12 + width / 4 + 20, (int) (height / 12  ) + 200 , width / 4 + height / 12, height / 12, "mounths");
-        //plot = new Plot(this,width/8, height/3, (width - width/4), height/2);
+        plot = new Plot(this,width/8, height/3, (width - width/4), height/2);
        // println(data.getData("AFGHANISTAN", 2014));
         year.indput = "2020";
-        Infofelt = "Year: " + year.indput + "\nDay: " + day.indput + "\nmouths: " + mounths.indput + "\nTotal Deaths: " + data.getAllDeaths(ChosenDate);
+        plot.deathGraph.inputTable(data.covidData);
+
     }
 
     @Override
@@ -41,14 +42,14 @@ PieChart chart = new PieChart(this);
 
         clear();
         background(200);
-        //plot.draw();
+        plot.draw();
         year.tegnTextFlet();
         day.tegnTextFlet();
         mounths.tegnTextFlet();
 
         text(Infofelt,width - width / 4, height / 12  );
 
-        System.out.println(data.getAllDeaths(ChosenDate) + " " + ChosenDate);
+
 
     }
 
@@ -66,10 +67,16 @@ PieChart chart = new PieChart(this);
         day.keyindput(key);
         mounths.keyindput(key);
         int aarInt = 0;
-//        plot.deathGraph = new ProcGraph(this,plot.posX, plot.posY, plot.xSize, plot.ySize, 1);
+        plot.deathGraph = new ProcGraph(this,plot.posX, plot.posY, plot.xSize, plot.ySize, 6);
         //if (year.indput.length() > 0)
            // aarInt = Integer.parseInt(aar.indput);
+        if(ChosenDate !=  year.indput + "-"+mounths.indput+"-"+day.indput){
+            ChosenDate = year.indput + "-"+mounths.indput+"-"+day.indput;
+            System.out.println(data.getAllDeaths(ChosenDate) + " " + ChosenDate);
+            Infofelt = "Year: " + year.indput + "\nDay: " + day.indput + "\nmouths: " + mounths.indput + "\nTotal Deaths: " + data.getAllDeaths(ChosenDate);
+            plot.deathGraph.inputTable(data.covidData);
+        }
 
-        ChosenDate = year.indput + "-"+mounths.indput+"-"+day.indput;
+
     }
 }

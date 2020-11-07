@@ -26,7 +26,7 @@ public class Plot {
         this.posY = posY;
         Datalist.add(new Data("1",1,1));
         pillarChart = new PillarChart(p,this.posX, this.posY, this.xSize, this.ySize);
-        deathGraph = new ProcGraph(p,this.posX, this.posY, this.xSize, this.ySize, 1);
+        deathGraph = new ProcGraph(p,this.posX, this.posY, this.xSize, this.ySize, 6);
         btnShowProcGraph = new AlmindeligKnap(p,posX - 50, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Proc graph");
         btnShowBarCharts = new AlmindeligKnap(p,posX - 50 + p.width / 12 + 20, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Bar charts");
         btnShowLines = new AlmindeligKnap(p,posX, posY+ySize + 20,p.width / 12 +20, p.height / 12 ,"Turn off lines");
@@ -58,7 +58,9 @@ public class Plot {
 
         }
         if(btnShowBarCharts.klikket){
-            xAxis.maxY = deathGraph.maxY;
+           /* xAxis.maxY = deathGraph.maxY;
+
+
             yAxis.maxY = deathGraph.maxY;
 
             p.fill(255);
@@ -68,7 +70,7 @@ public class Plot {
             pillarChart.drawPillarChart(selectetContryList,cName);
             xAxis.draw();
             yAxis.draw();
-            checkMouseCoordinates();
+            checkMouseCoordinates();      */
         }
 
 

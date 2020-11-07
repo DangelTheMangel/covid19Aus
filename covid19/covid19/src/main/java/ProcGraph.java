@@ -1,8 +1,10 @@
 import processing.core.PApplet;
+import processing.data.Table;
 
 public class ProcGraph extends Graph {
     ProcGraph(PApplet app, int posX, int posY, int xSize, int ySize, int colon) {
         super(app, posX, posY, xSize, ySize, colon);
+        table = new Table();
     }
 
     @Override
@@ -13,21 +15,22 @@ public class ProcGraph extends Graph {
             y1 = ySize;
 
 
-            for (int i=0; i<IndputList.size(); ++i) {
+            for (int i=0; i<table.getRowCount(); ++i) {
 
                 int maxList = 0;
-                for (int j = 0; j < IndputList.size(); ++j) {
-                    if (IndputList.get(j).Death > maxList) {
-                        maxList = IndputList.get(j).Death;
+                for (int j = 0; j < table.getRowCount(); ++j) {
+                    if (table.getInt(j,colon) > maxList) {
+                        maxList = table.getInt(j,colon);
                         maxY = Math.max(maxList, maxY);
                     }
                 }
-                xInt = xSize/IndputList.size();
+
+                xInt = xSize/table.getRowCount();
                 yInt = (float) ySize/maxY;
 
 
                 x2 = (int) xInt * i;
-                y2 = ySize - ((int) (IndputList.get(i).Death * yInt));
+                y2 = ySize - ((int) (table.getInt(i,colon) * yInt));
                 pApplet.stroke(0);
                 if(linesOn) {
                     pApplet.line(posX + x1, posY + y1, posX + x2, posY + y2);
@@ -39,6 +42,10 @@ public class ProcGraph extends Graph {
 
             }
 
+        }
+
+        void inputTable(Table input){
+            table = input;
         }
     }
 
