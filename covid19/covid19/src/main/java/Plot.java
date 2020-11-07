@@ -10,6 +10,7 @@ public class Plot {
     ProcGraph deathGraph;
     Axis xAxis;
     Axis yAxis;
+    DataBroker dataBroker;
     AlmindeligKnap btnShowProcGraph, btnShowBarCharts, btnShowLines;
 
     public ArrayList<Data> Datalist = new ArrayList<Data>() ;
@@ -17,8 +18,9 @@ public class Plot {
     PillarChart pillarChart;
     String cName;
 
-    Plot(PApplet app, int posX, int posY, int xSize, int ySize){
+    Plot(PApplet app, int posX, int posY, int xSize, int ySize, DataBroker dataBroker){
         p = app;
+        this.dataBroker = dataBroker;
         this.table = table;
         this.xSize = xSize;
         this.ySize = ySize;
@@ -124,22 +126,22 @@ public class Plot {
     void checkMouseCoordinates(){
 
        int row = deathGraph.getRowFromMouse(p.mouseX, p.mouseY);
-        if(row > 0 && row < selectetContryList.size()) {
+        if(row > 0 && row < dataBroker.covidData.getRowCount() ) {
             p.stroke(1, 46, 74);
             p.fill(174, 200, 245);
             p.rect(p.mouseX, p.mouseY, 200,100);
             p.fill(1, 46, 74);
 
-            int msgDeaths = selectetContryList.get(row).Death;
-            int msgDate = selectetContryList.get(row).Year;
-            String msgName = selectetContryList.get(row).name;
+            String msgDeaths = dataBroker.covidData.getString(row,6);
+            String msgDate = dataBroker.covidData.getString(row,3);
+            String msgName = dataBroker.covidData.getString(row,2);
 
             p.text("Year: " + msgDate , p.mouseX + 10, p.mouseY + 30);
             p.text("Name: " + msgName, p.mouseX + 10, p.mouseY + 50);
             p.text("Deaths: " + msgDeaths, p.mouseX + 10, p.mouseY + 70);
 
             int x1 = (int) deathGraph.getXInt() * row;
-            int y1 = ySize - ((int) (selectetContryList.get(row).Death * deathGraph.getYInt()));
+            int y1 = ySize - ((int) (deathGraph.table.getInt(row,6) * deathGraph.yInt));
 
             p.ellipse(x1 + posX, y1 + posY,10,10);
 
