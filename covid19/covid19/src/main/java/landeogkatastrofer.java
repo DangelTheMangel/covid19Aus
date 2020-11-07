@@ -1,7 +1,6 @@
 import processing.core.PApplet;
 import processing.data.Table;
 
-import java.util.ArrayList;
 //Bazinga min guttermand
 public class landeogkatastrofer extends PApplet {
 
@@ -12,7 +11,9 @@ Table table;
 Plot plot;
 String ChosenDate = " ";
 String chosenContrey = "Australia";
-
+AlmindeligKnap btnColonDown, btnColonUp;
+int chosenColon = 1;
+int[] graphTopic = {4,7,8,25};
 PieChart chart = new PieChart(this);
 
 
@@ -40,6 +41,14 @@ PieChart chart = new PieChart(this);
         year.indput = "2020";
         plot.deathGraph.inputTable(data.covidData);
         plot.pillarChart.inputTable(data.covidData);
+
+        btnColonUp = new AlmindeligKnap(this,width / 24, (int) (height / 12  ) + (height / 12 +20)*2  , (width / 24), height / 12, "<");
+        btnColonDown = new AlmindeligKnap(this,width / 24 + (width / 12 +7)*3 - (width / 24 ), (int) (height / 12  ) + (height / 12 +20)*2  , (width / 24 ), height / 12, ">");
+
+
+
+
+
     }
 
     @Override
@@ -54,6 +63,9 @@ PieChart chart = new PieChart(this);
         contry.tegnTextFlet();
 
         text(Infofelt,width - width / 4, height / 12  );
+        text(data.covidData.getString(0,graphTopic[chosenColon]),width / 24 + (width / 12+ 40), (int) (height / 12  ) + (height / 12 +20)*2  );
+        btnColonDown.tegnKnap();
+        btnColonUp.tegnKnap();
 
 
 
@@ -66,6 +78,35 @@ PieChart chart = new PieChart(this);
         mounths.KlikTjek(mouseX,mouseY);
         contry.KlikTjek(mouseX,mouseY);
         plot.clicked(mouseX,mouseY);
+
+        btnColonDown.registrerKlik(mouseX,mouseY);
+        btnColonUp.registrerKlik(mouseX,mouseY);
+
+        if(btnColonDown.klikket){
+            if(chosenColon - 1 >= 0){
+                chosenColon--;
+            } else {
+                chosenColon = graphTopic.length-1;
+            }
+            plot.deathGraph.colon = graphTopic[chosenColon];
+            plot.pillarChart.colon = graphTopic[chosenColon];
+            plot.colon = graphTopic[chosenColon];
+            btnColonDown.registrerRelease();
+        }
+
+        if(btnColonUp.klikket){
+            if(chosenColon + 1 < graphTopic.length-1){
+                chosenColon++;
+            } else {
+                chosenColon = 0;
+            }
+
+            plot.colon = graphTopic[chosenColon];
+            plot.deathGraph.colon = graphTopic[chosenColon];
+            plot.pillarChart.colon = graphTopic[chosenColon];
+            btnColonUp.registrerRelease();
+        }
+
     }
 
     @Override
