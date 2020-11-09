@@ -11,7 +11,7 @@ Table table;
 Plot plot;
 String ChosenDate = " ";
 String chosenContrey = "Australia";
-AlmindeligKnap btnColonDown, btnColonUp;
+AlmindeligKnap btnColonDown, btnColonUp, btnOptions;
 int chosenColon = 1;
 int[] graphTopic = {4,7,8,25};
 PieChart chart = new PieChart(this);
@@ -32,9 +32,9 @@ PieChart chart = new PieChart(this);
         data.loadData();
         year = new TextFlet(this,  width / 24, (int) (height / 12  ), width / 12, height / 12, "Year");
         day = new TextFlet(this,  width / 24 + width / 12 +10 , (int) (height / 12  )  , width / 12, height / 12, "Day");
-        mounths = new TextFlet(this,  width / 24 + (width / 12 +10)*2, (int) (height / 12  )  , width / 12 , height / 12, "mounths");
+        mounths = new TextFlet(this,  width / 24 + (width / 12 +10)*2, (int) (height / 12  )  , width / 12 , height / 12, "Months");
 
-        contry = new TextFlet(this, width / 24, (int) (height / 12  ) + (height / 12 +20)*1  , (width / 12 +7)*3, height / 12, "contrys");
+        contry = new TextFlet(this, width / 24, (int) (height / 12  ) + (height / 12 +20)*1  , (width / 12 +7)*3, height / 12, "Countries");
         contry.indput = chosenContrey;
         plot = new Plot(this,width/2 - width/8, height/3, ( width/2), height/4, data);
        // println(data.getData("AFGHANISTAN", 2014));
@@ -44,7 +44,7 @@ PieChart chart = new PieChart(this);
 
         btnColonUp = new AlmindeligKnap(this,width / 24, (int) (height / 12  ) + (height / 12 +20)*2  , (width / 24), height / 12, "<");
         btnColonDown = new AlmindeligKnap(this,width / 24 + (width / 12 +7)*3 - (width / 24 ), (int) (height / 12  ) + (height / 12 +20)*2  , (width / 24 ), height / 12, ">");
-
+        btnOptions = new AlmindeligKnap(this, width / 24,height / 30, width / 20, height / 14, "Options");
 
 
 
@@ -66,6 +66,7 @@ PieChart chart = new PieChart(this);
         text(data.covidData.getString(0,graphTopic[chosenColon]),width / 24 + (width / 12+ 40), (int) (height / 12  ) + (height / 12 +20)*2  );
         btnColonDown.tegnKnap();
         btnColonUp.tegnKnap();
+        btnOptions.tegnKnap();
 
 
 
@@ -74,46 +75,52 @@ PieChart chart = new PieChart(this);
     @Override
     public void mouseClicked() {
         System.out.println(graphTopic[chosenColon]);
-        year.KlikTjek(mouseX,mouseY);
-        day.KlikTjek(mouseX,mouseY);
-        mounths.KlikTjek(mouseX,mouseY);
-        contry.KlikTjek(mouseX,mouseY);
         plot.clicked(mouseX,mouseY);
+        btnOptions.registrerKlik(mouseX,mouseY);
+        if(btnOptions.klikket) {
+            plot = new Plot(this,width/4 - width/8, height/3, ( width/2), height/4, data);
 
-        btnColonDown.registrerKlik(mouseX,mouseY);
-        btnColonUp.registrerKlik(mouseX,mouseY);
+        } else {
+            year.KlikTjek(mouseX, mouseY);
+            day.KlikTjek(mouseX, mouseY);
+            mounths.KlikTjek(mouseX, mouseY);
+            contry.KlikTjek(mouseX, mouseY);
 
-        if(btnColonDown.klikket){
-            if(chosenColon - 1 >= 0){
-                chosenColon--;
-            } else {
-                chosenColon = graphTopic.length-1;
+
+            btnColonDown.registrerKlik(mouseX, mouseY);
+            btnColonUp.registrerKlik(mouseX, mouseY);
+
+            if (btnColonDown.klikket) {
+                if (chosenColon - 1 >= 0) {
+                    chosenColon--;
+                } else {
+                    chosenColon = graphTopic.length - 1;
+                }
+                plot.deathGraph.maxY = Integer.MIN_VALUE;
+                plot.pillarChart.maxY = Integer.MIN_VALUE;
+                plot.deathGraph.colon = graphTopic[chosenColon];
+                plot.pillarChart.colon = graphTopic[chosenColon];
+                plot.colon = graphTopic[chosenColon];
+                btnColonDown.registrerRelease();
             }
-            plot.deathGraph.maxY = Integer.MIN_VALUE;
-            plot.pillarChart.maxY = Integer.MIN_VALUE;
-            plot.deathGraph.colon = graphTopic[chosenColon];
-            plot.pillarChart.colon = graphTopic[chosenColon];
-            plot.colon = graphTopic[chosenColon];
-            btnColonDown.registrerRelease();
-        }
 
-        if(btnColonUp.klikket){
-            if(chosenColon + 1 < graphTopic.length-1){
-                chosenColon++;
-            } else {
-                chosenColon = 0;
-            }
-            plot.deathGraph.maxY = Integer.MIN_VALUE;
-            plot.pillarChart.maxY = Integer.MIN_VALUE;
-            plot.deathGraph.colon = graphTopic[chosenColon];
-            plot.pillarChart.colon = graphTopic[chosenColon];
-            plot.colon = graphTopic[chosenColon];
+            if (btnColonUp.klikket) {
+                if (chosenColon + 1 < graphTopic.length - 1) {
+                    chosenColon++;
+                } else {
+                    chosenColon = 0;
+                }
+                plot.deathGraph.maxY = Integer.MIN_VALUE;
+                plot.pillarChart.maxY = Integer.MIN_VALUE;
+                plot.deathGraph.colon = graphTopic[chosenColon];
+                plot.pillarChart.colon = graphTopic[chosenColon];
+                plot.colon = graphTopic[chosenColon];
 
           /*  plot.deathGraph = new ProcGraph(this,plot.posX,plot.posY,plot.xSize,plot.ySize,graphTopic[chosenColon]);
             plot.pillarChart = new PillarChart(this,plot.posX,plot.posY,plot.xSize,plot.ySize,graphTopic[chosenColon]);*/
-            btnColonUp.registrerRelease();
+                btnColonUp.registrerRelease();
+            }
         }
-
     }
 
     @Override
@@ -129,7 +136,7 @@ PieChart chart = new PieChart(this);
         if(ChosenDate !=  year.indput + "-"+mounths.indput+"-"+day.indput){
             ChosenDate = year.indput + "-"+mounths.indput+"-"+day.indput;
             System.out.println(data.getAllDeaths(ChosenDate) + " " + ChosenDate);
-            Infofelt = "Year: " + year.indput + "\nDay: " + day.indput + "\nmouths: " + mounths.indput + "\nTotal Deaths: " + data.getAllDeaths(ChosenDate);
+            Infofelt = "Year: " + year.indput + "\nDay: " + day.indput + "\nmonths: " + mounths.indput + "\nTotal Deaths: " + data.getAllDeaths(ChosenDate);
             plot.deathGraph.inputTable(data.covidData);
             plot.pillarChart.inputTable(data.covidData);
             plot.deathGraph.graphStart = plot.getGraphStarter(ChosenDate);
