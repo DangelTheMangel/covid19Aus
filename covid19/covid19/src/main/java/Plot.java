@@ -162,5 +162,27 @@ public class Plot {
 
        return staterNumb;
     }
+
+    void changeSize(int x, int y, int sX, int sY , int h, int w){
+       deathGraph.posX = x;
+       deathGraph.posY = y;
+        deathGraph.xSize = sX;
+        deathGraph.ySize = sY;
+       pillarChart.posX = x;
+       pillarChart.posY = y;
+        pillarChart.xSize = x;
+        pillarChart.ySize = y;
+        xAxis.x1 = x; xAxis.x2 = x+sX; xAxis.y1 = y + sY; xAxis.y2 = y+sY;
+        yAxis.x1 = x; yAxis.x2 = x; yAxis.y1 = y + sY; yAxis.y2 = y;
+
+        btnShowBarCharts.positionX;
+        btnShowBarCharts.positionY;
+/*
+ btnShowProcGraph = new AlmindeligKnap(p,posX - 50, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Proc graph");
+        btnShowBarCharts = new AlmindeligKnap(p,posX - 50 + p.width / 12 + 20, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Bar charts");
+        btnShowLines = new AlmindeligKnap(p,posX, posY+ySize + 20,p.width / 12 +20, p.height / 12 ,"Turn off lines");
+ */
+
+    }
     }
 
