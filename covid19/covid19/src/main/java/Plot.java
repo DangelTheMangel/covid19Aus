@@ -164,6 +164,10 @@ public class Plot {
     }
 
     void changeSize(int x, int y, int sX, int sY , int h, int w){
+        posX = x;
+        posY = y;
+        xSize = sX;
+        ySize = sY;
        deathGraph.posX = x;
        deathGraph.posY = y;
         deathGraph.xSize = sX;
@@ -175,8 +179,12 @@ public class Plot {
         xAxis.x1 = x; xAxis.x2 = x+sX; xAxis.y1 = y + sY; xAxis.y2 = y+sY;
         yAxis.x1 = x; yAxis.x2 = x; yAxis.y1 = y + sY; yAxis.y2 = y;
 ///
-        btnShowBarCharts.positionX;
-        btnShowBarCharts.positionY;
+        btnShowBarCharts.positionX = x ;
+        btnShowBarCharts.positionY = y;
+        btnShowProcGraph.positionY=y;
+        btnShowProcGraph.positionX = x + p.width/12;
+        btnShowLines.positionX = x + p.width/12;
+        btnShowLines.positionY= sY + y;
 /*//
  btnShowProcGraph = new AlmindeligKnap(p,posX - 50, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Proc graph");
         btnShowBarCharts = new AlmindeligKnap(p,posX - 50 + p.width / 12 + 20, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Bar charts");

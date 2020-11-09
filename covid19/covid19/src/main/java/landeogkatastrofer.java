@@ -78,7 +78,7 @@ PieChart chart = new PieChart(this);
         plot.clicked(mouseX,mouseY);
         btnOptions.registrerKlik(mouseX,mouseY);
         if(btnOptions.klikket) {
-            plot = new Plot(this,width/4 - width/8, height/3, ( width/2), height/4, data);
+            plot.changeSize(500,100,400,700,height,width);
 
         } else {
             year.KlikTjek(mouseX, mouseY);
