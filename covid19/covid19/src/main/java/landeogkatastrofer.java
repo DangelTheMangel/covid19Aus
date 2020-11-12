@@ -78,14 +78,14 @@ PieChart chart = new PieChart(this);
         plot.clicked(mouseX,mouseY);
         btnOptions.registrerKlik(mouseX,mouseY);
         if(btnOptions.klikket) {
-            plot.changeSize(500,100,400,700,height,width);
-
+            plot.changeSize(100,200,1000,370,height,width);
+            btnOptions.registrerKlik(mouseX,mouseY);
         } else {
             year.KlikTjek(mouseX, mouseY);
             day.KlikTjek(mouseX, mouseY);
             mounths.KlikTjek(mouseX, mouseY);
             contry.KlikTjek(mouseX, mouseY);
-
+            plot.changeSize(width/2 - width/8, height/3, ( width/2), height/4,height,width);
 
             btnColonDown.registrerKlik(mouseX, mouseY);
             btnColonUp.registrerKlik(mouseX, mouseY);
