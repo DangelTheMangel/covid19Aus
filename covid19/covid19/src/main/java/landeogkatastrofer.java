@@ -11,7 +11,8 @@ Table table;
 Plot plot;
 String ChosenDate = " ";
 String chosenContrey = "Australia";
-AlmindeligKnap btnColonDown, btnColonUp, btnOptions;
+AlmindeligKnap btnColonDown, btnColonUp;
+ToggleKnap btnOptions;
 int chosenColon = 1;
 int[] graphTopic = {4,7,8,25};
 PieChart chart = new PieChart(this);
@@ -44,7 +45,7 @@ PieChart chart = new PieChart(this);
 
         btnColonUp = new AlmindeligKnap(this,width / 24, (int) (height / 12  ) + (height / 12 +20)*2  , (width / 24), height / 12, "<");
         btnColonDown = new AlmindeligKnap(this,width / 24 + (width / 12 +7)*3 - (width / 24 ), (int) (height / 12  ) + (height / 12 +20)*2  , (width / 24 ), height / 12, ">");
-        btnOptions = new AlmindeligKnap(this, width / 24,height / 30, width / 20, height / 14, "Options");
+        btnOptions = new ToggleKnap(this, width / 24,height / 30, width / 20, height / 14, "Options");
 
 
 
@@ -57,16 +58,20 @@ PieChart chart = new PieChart(this);
         clear();
         background(200);
         plot.draw();
-        year.tegnTextFlet();
-        day.tegnTextFlet();
-        mounths.tegnTextFlet();
-        contry.tegnTextFlet();
+        if(btnOptions.klikket){
+            year.tegnTextFlet();
+            day.tegnTextFlet();
+            mounths.tegnTextFlet();
+            contry.tegnTextFlet();
 
-        text(Infofelt,width - width / 4, height / 12  );
-        text(data.covidData.getString(0,graphTopic[chosenColon]),width / 24 + (width / 12+ 40), (int) (height / 12  ) + (height / 12 +20)*2  );
-        btnColonDown.tegnKnap();
-        btnColonUp.tegnKnap();
+            text(Infofelt,width - width / 4, height / 12  );
+            text(data.covidData.getString(0,graphTopic[chosenColon]),width / 24 + (width / 12+ 40), (int) (height / 12  ) + (height / 12 +20)*2  );
+            btnColonDown.tegnKnap();
+            btnColonUp.tegnKnap();
+
+        }
         btnOptions.tegnKnap();
+
 
 
 
@@ -77,9 +82,9 @@ PieChart chart = new PieChart(this);
         System.out.println(graphTopic[chosenColon]);
         plot.clicked(mouseX,mouseY);
         btnOptions.registrerKlik(mouseX,mouseY);
-        if(btnOptions.klikket) {
+        if(!btnOptions.klikket) {
             plot.changeSize(100,200,1000,370,height,width);
-            btnOptions.registrerKlik(mouseX,mouseY);
+
         } else {
             year.KlikTjek(mouseX, mouseY);
             day.KlikTjek(mouseX, mouseY);
