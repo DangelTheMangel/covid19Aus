@@ -74,11 +74,12 @@ PieChart chart = new PieChart(this);
         background(200);
 
         fill(157, 183, 209);
-        rect(0,0,width,(height / 14)*3);
-        fill(250);
+        rect(0,0,width,(height / 14)*3-2);
+        fill(232, 244, 255);
         rect(chosen[chosenshow].x, chosen[chosenshow].y,width / 3, height / 14);
         if(chosenshow ==0) {
             plot.draw();
+            btnOptions.tegnKnap();
             if (btnOptions.klikket) {
                 year.tegnTextFlet();
                 day.tegnTextFlet();
@@ -89,12 +90,14 @@ PieChart chart = new PieChart(this);
                 text(data.covidData.getString(0, graphTopic[chosenColon]), width / 24 + (width / 12 + 40), (int) (height / 12) + (height / 12 + 20) * 9 / 2);
                 btnColonDown.tegnKnap();
                 btnColonUp.tegnKnap();
-                btnOptions.tegnKnap();
+
             }
         } else if(chosenshow ==1){
 
         } else if(chosenshow == 2){
-
+            fill(0);
+            String gf= "Infected: \n" + data.covidData.getString(data.covidData.getRowCount()-1,4) + "\nTotal death: \n" + data.covidData.getString(data.covidData.getRowCount()-1,7);
+            text(gf,250,250);
         }
 
         btnGernalfacts.tegnKnap();
