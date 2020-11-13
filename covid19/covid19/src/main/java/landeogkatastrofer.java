@@ -8,6 +8,10 @@ public class landeogkatastrofer extends PApplet {
 DataBroker data;
 String Infofelt = "Land: " + "\nÅR: " +  "\nDøde: ";
 TextFlet year,day, mounths, contry;
+String[] news = {"Seek immediate medical\nattention if you\nhave serious symptoms.\nAlways call before\nvisiting your doctor\nor health facility."
+        ,"People with mild\nsymptoms who are\notherwise healthy should\nmanage their symptoms\n at home."
+        ,"On average it\ntakes 5–6 days\nfrom when someone\nis infected with\nthe virus for\nsymptoms to show,\nhowever it can\ntake up to\n14 days."};
+int newsInt = 0;
 Table table;
 PVector[] chosen = {null, null,null};
 int chosenshow =0;
@@ -71,7 +75,8 @@ PieChart chart = new PieChart(this);
     public void draw() {
 
         clear();
-        background(200);
+        textSize(16);
+        background(232, 244, 255);
 
         fill(157, 183, 209);
         rect(0,0,width,(height / 14)*3-2);
@@ -96,8 +101,27 @@ PieChart chart = new PieChart(this);
 
         } else if(chosenshow == 2){
             fill(0);
-            String gf= "Infected: \n" + data.covidData.getString(data.covidData.getRowCount()-1,4) + "\nTotal death: \n" + data.covidData.getString(data.covidData.getRowCount()-1,7);
-            text(gf,250,250);
+            String gf= "Date: \n" +data.covidData.getString(data.covidData.getRowCount()-1,3) +"\n\nInfected: \n" + data.covidData.getString(data.covidData.getRowCount()-1,4) + "\n\nTotal death: \n" + data.covidData.getString(data.covidData.getRowCount()-1,7);
+            textBox(gf,width-(height/14) - 250);
+            if (frameCount % 500 == 0) {
+                if (news.length - 1 > newsInt){
+                    newsInt++;
+            }else{
+                    newsInt =0;
+                }
+            }
+            textBox("REMEMBER\n\n"+news[newsInt],width-((height/14)*2) - 500);
+            textBox("MOST COMMON SYMPTOMS: \n\n-fever\n \n-dry\n \n-cough\n \n-tiredness\n",(height/14));
+            textBox( "LESS COMMON SYMPTOMS:\n\n-aches and pains\n" +
+                    "\n-sore throat\n" +
+                    "\n-diarrhoea\n" +
+                    "\n-conjunctivitis\n" +
+                    "\n-headache\n" +
+                    "\n-loss of taste or smell\n" +
+                    "\n-a rash on skin\n  "
+                   +
+                    "\n-discolouration of \nfingers or toes",(height/14)+250);
+
         }
 
         btnGernalfacts.tegnKnap();
@@ -198,5 +222,14 @@ PieChart chart = new PieChart(this);
         }
 
 
+    }
+
+    public void textBox(String s,float x){
+        fill(191, 223, 255);
+        rect(x,200,250,519-height / 14);
+        textSize(14);
+
+        fill(57, 92, 128);
+        text(s,x+125- textWidth(s)/2,200+height/14);
     }
 }

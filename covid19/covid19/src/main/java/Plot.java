@@ -40,7 +40,7 @@ public class Plot {
 
     void  draw(){
 
-        p.fill(218, 228, 245);
+        p.fill(191, 223, 255);
         p.rect(posX  - 50, posY - 100, xSize + 100, ySize + 270 );
         if(btnShowProcGraph.klikket){
             xAxis.maxY = deathGraph.maxY;
