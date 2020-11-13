@@ -30,18 +30,21 @@ public class Plot {
         Datalist.add(new Data("1",1,1));
         pillarChart = new PillarChart(p,this.posX, this.posY, this.xSize, this.ySize, colon);
         deathGraph = new ProcGraph(p,this.posX, this.posY, this.xSize, this.ySize, colon);
-        btnShowProcGraph = new AlmindeligKnap(p,posX - 50, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Proc graph");
-        btnShowBarCharts = new AlmindeligKnap(p,posX - 50 + p.width / 12 + 20, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Bar charts");
-        btnShowLines = new AlmindeligKnap(p,posX, posY+ySize + 20,p.width / 12 +20, p.height / 12 ,"Turn off lines");
+        btnShowProcGraph = new AlmindeligKnap(p,p.width / 24, (int) (p.height / 12  ) + (p.height / 12 +20)*5, p.width / 12, p.height / 12, "Proc graph");
+        btnShowBarCharts = new AlmindeligKnap(p,p.width / 24 + (p.width / 12 +10)*2, (int) (p.height / 12  ) + (p.height / 12 +20)*5, p.width / 12, p.height / 12, "Bar charts");
+        btnShowLines = new AlmindeligKnap(p,p.width / 24, (int) (p.height / 12  ) + (p.height / 12 +20)*6, p.width / 12, p.height / 12,"Turn off \nlines");
         xAxis = new Axis (p, this.posX , this.posY + this.ySize, this.posX + this.xSize, this.posY + this.ySize, false, Datalist, deathGraph.xInt, deathGraph.yInt , 5);
         yAxis = new Axis (p, this.posX , posY + ySize , posX, posY, true, Datalist, deathGraph.xInt, deathGraph.yInt, 50000);
         btnShowProcGraph.klikket = true;
+        //btnShowBarCharts.klikket = true;
     }
 
-    void  draw(){
+    void  draw(String s){
 
         p.fill(191, 223, 255);
         p.rect(posX  - 50, posY - 100, xSize + 100, ySize + 270 );
+
+        p.fill(191, 223, 255);
         if(btnShowProcGraph.klikket){
             xAxis.maxY = deathGraph.maxY;
             yAxis.maxY = deathGraph.maxY;
@@ -52,12 +55,8 @@ public class Plot {
             deathGraph.draw();
             xAxis.draw();
             yAxis.draw();
-            btnShowLines.tegnKnap();
-            if(btnShowLines.klikket){
-                deathGraph.linesOn = !deathGraph.linesOn;
-                btnShowLines.registrerRelease();
-            }
             checkMouseCoordinates();
+
 
         }
         if(btnShowBarCharts.klikket){
@@ -74,15 +73,15 @@ public class Plot {
             xAxis.draw();
             yAxis.draw();
             checkMouseCoordinates();
+
         }
 
 
 
-
-        btnShowProcGraph.tegnKnap();
-        btnShowBarCharts.tegnKnap();
-
-
+        p.fill(255);
+        p.textSize(20);
+        p.text("Graph Shows: "+s,posX+xSize/2-p.textWidth(s),posY-32);
+        p.textSize(16);
     }
 
     public void setArraylist(ArrayList<Data> IndputList, String countryName){
@@ -118,9 +117,9 @@ public class Plot {
         }
 
         if(deathGraph.linesOn){
-            btnShowLines.text = "Turn off lines";
+            btnShowLines.text = "Turn off \nlines";
         }else {
-            btnShowLines.text = "Turn on lines";
+            btnShowLines.text = "Turn on \nlines";
         }
     }
 
@@ -130,18 +129,26 @@ public class Plot {
         if(row > 0 && row < dataBroker.covidData.getRowCount() ) {
             p.stroke(1, 46, 74);
             p.fill(174, 200, 245);
-            p.rect(p.mouseX, p.mouseY, 200,100);
+            p.rect(p.mouseX, p.mouseY, 200,200);
             p.fill(1, 46, 74);
 
             String msgDeaths = dataBroker.covidData.getString(row,7);
             String msgDate = dataBroker.covidData.getString(row,3);
             String msgName = dataBroker.covidData.getString(row,2);
             String msgCases = dataBroker.covidData.getString(row,4);
+            String msgNewCases = dataBroker.covidData.getString(row,5);
+            String msgNewtestet = dataBroker.covidData.getString(row,25);
+            String msgNewDeath = dataBroker.covidData.getString(row,8) ;
+
 
             p.text("Year: " + msgDate , p.mouseX + 10, p.mouseY + 30);
-            p.text("Name: " + msgName, p.mouseX + 10, p.mouseY + 50);
+            p.text("Countrey: " + msgName, p.mouseX + 10, p.mouseY + 50);
             p.text("Total Deaths: " + msgDeaths, p.mouseX + 10, p.mouseY + 70);
             p.text("Total Case: " + msgCases, p.mouseX + 10, p.mouseY + 90);
+            p.text("New Cases: " + msgNewCases, p.mouseX + 10, p.mouseY + 110);
+            p.text("New Test: " + msgNewtestet, p.mouseX + 10, p.mouseY + 130);
+            p.text("New Deaths: " + msgNewDeath, p.mouseX + 10, p.mouseY + 150);
+
             int x1 = (int) deathGraph.getXInt() * row;
             int y1 = ySize - ((int) (deathGraph.table.getInt(row,colon) * deathGraph.yInt));
 
@@ -172,24 +179,33 @@ public class Plot {
        deathGraph.posY = y;
         deathGraph.xSize = sX;
         deathGraph.ySize = sY;
-       pillarChart.posX = x;
+     pillarChart.posX = x;
        pillarChart.posY = y;
-        pillarChart.xSize = x;
-        pillarChart.ySize = y;
+         pillarChart.xSize = sX;
+         pillarChart.ySize = sY;
         xAxis.x1 = x; xAxis.x2 = x+sX; xAxis.y1 = y + sY; xAxis.y2 = y+sY;
         yAxis.x1 = x; yAxis.x2 = x; yAxis.y1 = y + sY; yAxis.y2 = y;
 ///
-        btnShowBarCharts.positionX = x ;
-        btnShowBarCharts.positionY = y;
-        btnShowProcGraph.positionY=y;
-        btnShowProcGraph.positionX = x + p.width/12;
-        btnShowLines.positionX = x + p.width/12;
-        btnShowLines.positionY= sY + y;
+
 /*//
  btnShowProcGraph = new AlmindeligKnap(p,posX - 50, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Proc graph");
         btnShowBarCharts = new AlmindeligKnap(p,posX - 50 + p.width / 12 + 20, (int) (p.height / 12  + ( p.height / 9)), p.width / 12, p.height / 12, "Bar charts");
         btnShowLines = new AlmindeligKnap(p,posX, posY+ySize + 20,p.width / 12 +20, p.height / 12 ,"Turn off lines");
  */
+
+    }
+
+    void drawBtN(){
+        if(btnShowProcGraph.klikket){
+            btnShowLines.tegnKnap();
+            if(btnShowLines.klikket){
+                deathGraph.linesOn = !deathGraph.linesOn;
+                btnShowLines.registrerRelease();
+            }
+        }
+
+        btnShowProcGraph.tegnKnap();
+        btnShowBarCharts.tegnKnap();
 
     }
     }

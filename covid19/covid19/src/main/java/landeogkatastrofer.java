@@ -41,7 +41,7 @@ PFont lillefont;
         data = new DataBroker(this, table );
         font =createFont("WorkSans-ExtraBold.ttf",16);
         lillefont = createFont("WorkSans-Medium.ttf",16);
-        data.loadData();
+        data.loadData("Australia");
         btnGernalfacts = new AlmindeligKnap(this, (width / 3)*2,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "general fackts");
         btnGraph =new AlmindeligKnap(this, 0,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "insert name");
         btnAdvice = new AlmindeligKnap(this, width / 3,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "advance");
@@ -62,7 +62,7 @@ PFont lillefont;
         contry = new TextFlet(this, width / 24, (int) (height / 12  ) + (height / 12 +20)*3  , (width / 12 +7)*3, height / 12, "Countries");
         contry.indput = chosenContrey;
         plot = new Plot(this,width/2 - width/8, height/3, ( width/2), height/4, data);
-       // println(data.getData("AFGHANISTAN", 2014));
+
         year.indput = "2020";
         plot.deathGraph.inputTable(data.covidData);
         plot.pillarChart.inputTable(data.covidData);
@@ -71,48 +71,74 @@ PFont lillefont;
         chosen[1] = new PVector(width/3,(int) (height / 12  ) + (height / 12 +20)*1/2);
         chosen[2] = new PVector((width/3)*2,(int) (height / 12  ) + (height / 12 +20)*1/2);
 
-
+        plot.changeSize(100+ height/14,200+ height/14,1000 ,370- height/14,height,width);
 
     }
 
     @Override
     public void draw() {
+
         textFont(lillefont);
         clear();
         textSize(16);
         background(232, 244, 255);
 
-        fill(157, 183, 209);
+        fill(115, 185, 255);
         rect(0,0,width,(height / 14)*3-2);
         fill(232, 244, 255);
+        textSize(32);
+        text("Covid-19 in "+ data.covidData.getString(1,2),width/2-textWidth("Covid-19 in Australia")/2,50);
+        textSize(16);
         rect(chosen[chosenshow].x, chosen[chosenshow].y,width / 3, height / 14);
         if(chosenshow ==0) {
+            String s = data.covidData.getString(0, graphTopic[chosenColon]);
+            String[]splitS = s.split("_");
+            if (splitS.length>1)
+                s = splitS[0]+ " " + splitS[1];
+            else
+                s = splitS[0];
             textFont(lillefont);
-            plot.draw();
+            plot.draw(s);
             btnOptions.tegnKnap();
             if (btnOptions.klikket) {
                 textFont(lillefont);
+                fill(191, 223, 255);
+                rect(0, (float) (height / 14 + height / (9.5)*2),width/3,height);
                 year.tegnTextFlet();
                 day.tegnTextFlet();
                 mounths.tegnTextFlet();
                 contry.tegnTextFlet();
 
-                text(Infofelt, width / 24 + (width / 12 + 40), (int) (height / 12) + (height / 12 + 20) * 6);
-                text(data.covidData.getString(0, graphTopic[chosenColon]), width / 24 + (width / 12 + 40), (int) (height / 12) + (height / 12 + 20) * 9 / 2);
+
+                text(s, width / 24 + (width / 12 + 40), (int) (height / 12) + (height / 12 + 20) * 9 / 2);
                 btnColonDown.tegnKnap();
                 btnColonUp.tegnKnap();
+                plot.drawBtN();
 
             }
         } else if(chosenshow ==1){
             textFont(font);
             textBox("WASH YOUR HANDS \nOR\nUSE HAND SANITISER",height/14);
-            textBox("hello",(height/14)*2+ 250);
-            textBox("hello",width-((height/14)*1+ 250));
-            textBox("hello",width-((height/14)*2) - 500);
+            textBox("COUGH OR SNEEZE \nINTO YOUR SLEEVE",(height/14)*2+ 250);
+            textBox("AVOID HANDSHAKES, \nKISSES AND HUGS \nLIMIT PHYSICAL CONTACT",width-((height/14)*1+ 250));
+            textBox("KEEP AWAY FROM \nOTHER PEOPLE AND \nASK OTHERS TO \nDO THE SAME",width-((height/14)*2) - 500);
         } else if(chosenshow == 2){
             textFont(font);
             fill(0);
-            String gf= "Date: \n" +data.covidData.getString(data.covidData.getRowCount()-1,3) +"\n\nInfected: \n" + data.covidData.getString(data.covidData.getRowCount()-1,4) + "\n\nTotal death: \n" + data.covidData.getString(data.covidData.getRowCount()-1,7);
+
+            String msgDeaths = data.covidData.getString(data.covidData.getRowCount()-2,7);
+            String msgDate = data.covidData.getString(data.covidData.getRowCount()-2,3);
+            String msgCases = data.covidData.getString(data.covidData.getRowCount()-2,4);
+            String msgNewCases = data.covidData.getString(data.covidData.getRowCount()-2,5);
+            String msgName = data.covidData.getString(data.covidData.getRowCount()-2,2);
+            String msgNewDeath = data.covidData.getString(data.covidData.getRowCount()-2,8) ;
+
+            String gf= "Date: \n" +msgDate + "\n\nContrys:\n" +msgName+
+                    "\n\nTotal Cases: \n" + msgCases +
+                    "\n\nTotal death: \n" + msgDeaths+
+                    "\n\nNew Cases: \n" + msgNewCases+
+                    "\n\nNew death \n" + msgNewDeath
+                    ;
             textBox(gf,width-(height/14) - 250);
             if (frameCount % 500 == 0) {
                 if (news.length - 1 > newsInt){
@@ -147,7 +173,7 @@ PFont lillefont;
 
     @Override
     public void mouseClicked() {
-        System.out.println(graphTopic[chosenColon]);
+
         plot.clicked(mouseX,mouseY);
         btnOptions.registrerKlik(mouseX,mouseY);
         btnAdvice.registrerKlik(mouseX,mouseY);
@@ -175,7 +201,9 @@ PFont lillefont;
             day.KlikTjek(mouseX, mouseY);
             mounths.KlikTjek(mouseX, mouseY);
             contry.KlikTjek(mouseX, mouseY);
-            plot.changeSize(width/2 - width/8, height/3+ height/14 , ( width/2)- height/14, height/4- height/14,height,width);
+
+            ///////////////////////////////////////
+            plot.changeSize(   width / 3 + width / 12 , height/3 + height/12 , width/2, height/3-height/14,height,width);
 
             btnColonDown.registrerKlik(mouseX, mouseY);
             btnColonUp.registrerKlik(mouseX, mouseY);
@@ -205,9 +233,6 @@ PFont lillefont;
                 plot.deathGraph.colon = graphTopic[chosenColon];
                 plot.pillarChart.colon = graphTopic[chosenColon];
                 plot.colon = graphTopic[chosenColon];
-
-          /*  plot.deathGraph = new ProcGraph(this,plot.posX,plot.posY,plot.xSize,plot.ySize,graphTopic[chosenColon]);
-            plot.pillarChart = new PillarChart(this,plot.posX,plot.posY,plot.xSize,plot.ySize,graphTopic[chosenColon]);*/
                 btnColonUp.registrerRelease();
             }
         }
@@ -220,13 +245,13 @@ PFont lillefont;
         mounths.keyindput(key);
         contry.keyindput(key);
         int aarInt = 0;
+        data.covidData.clearRows();
+        data.loadData(contry.indput);
         plot.deathGraph = new ProcGraph(this,plot.posX, plot.posY, plot.xSize, plot.ySize, 6);
-        //if (year.indput.length() > 0)
-           // aarInt = Integer.parseInt(aar.indput);
         if(ChosenDate !=  year.indput + "-"+mounths.indput+"-"+day.indput){
             ChosenDate = year.indput + "-"+mounths.indput+"-"+day.indput;
-            System.out.println(data.getAllDeaths(ChosenDate) + " " + ChosenDate);
-            Infofelt = "Year: " + year.indput + "\nDay: " + day.indput + "\nmonths: " + mounths.indput + "\nTotal Deaths: " + data.getAllDeaths(ChosenDate);
+
+
             plot.deathGraph.inputTable(data.covidData);
             plot.pillarChart.inputTable(data.covidData);
             plot.deathGraph.graphStart = plot.getGraphStarter(ChosenDate);

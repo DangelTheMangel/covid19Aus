@@ -70,7 +70,7 @@ public class TextFlet {
             }
 
         }
-        p.println(indput);
+
     }
 
 

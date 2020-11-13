@@ -37,8 +37,8 @@ public class PillarChart {
             yInt = ySize*table.getInt(i -graphStart,colon)/maxY;
             x2 = (int) (posX + xInt*i -graphStart);
 
-            //denne linje driller nogle gange
-            p.rect(x2,p.height-(posY + posY/4),xInt,-yInt);
+
+            p.rect(x2,posY+ySize,xInt,-yInt);
         }
 
     }

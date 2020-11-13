@@ -17,16 +17,15 @@ public class DataBroker<data> extends PApplet {
 
     }
 
-    public void loadData() {
+    public void loadData(String s) {
         covidData.addRow(data.getRow(0));
         for (int i = 0; i < data.getRowCount(); ++i) {
-            if (data.getString(i, 2).equalsIgnoreCase("Australia")) {
+            if (data.getString(i, 2).equalsIgnoreCase(s)) {
                 covidData.addRow(data.getRow(i));
             }
         }
-        for (int j = 0; j < covidData.getRowCount(); ++j) {
-            System.out.println(covidData.getString(j, 1));
-        }
+        covidData.addRow();
+
 
     }
 
