@@ -98,7 +98,10 @@ PieChart chart = new PieChart(this);
 
             }
         } else if(chosenshow ==1){
-
+            textBox("WASH YOUR HANDS \nOR\nUSE HAND SANITISER",height/14);
+            textBox("hello",(height/14)*2+ 250);
+            textBox("hello",width-((height/14)*1+ 250));
+            textBox("hello",width-((height/14)*2) - 500);
         } else if(chosenshow == 2){
             fill(0);
             String gf= "Date: \n" +data.covidData.getString(data.covidData.getRowCount()-1,3) +"\n\nInfected: \n" + data.covidData.getString(data.covidData.getRowCount()-1,4) + "\n\nTotal death: \n" + data.covidData.getString(data.covidData.getRowCount()-1,7);
@@ -230,6 +233,6 @@ PieChart chart = new PieChart(this);
         textSize(14);
 
         fill(57, 92, 128);
-        text(s,x+125- textWidth(s)/2,200+height/14);
+        text(s,x+125- textWidth(s)/2,200+height/14 );
     }
 }
