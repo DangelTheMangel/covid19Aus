@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.core.PImage;
 import processing.core.PVector;
 import processing.data.Table;
 
@@ -26,6 +27,7 @@ int[] graphTopic = {4,7,8,25};
 PieChart chart = new PieChart(this);
 PFont font;
 PFont lillefont;
+PImage logo;
 
 
     public static void main(String[] args) { PApplet.main("landeogkatastrofer"); }
@@ -72,7 +74,7 @@ PFont lillefont;
         chosen[2] = new PVector((width/3)*2,(int) (height / 12  ) + (height / 12 +20)*1/2);
 
         plot.changeSize(100+ height/14,200+ height/14,1000 ,370- height/14,height,width);
-
+        logo = loadImage("logo.png");
     }
 
     @Override
@@ -167,7 +169,7 @@ PFont lillefont;
         textFont(lillefont);
 
 
-
+        image(logo,width-width/5,0,width/8,height/8);
 
     }
 
