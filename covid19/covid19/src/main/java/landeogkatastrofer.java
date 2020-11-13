@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PVector;
 import processing.data.Table;
 
@@ -23,6 +24,8 @@ ToggleKnap btnOptions;
 int chosenColon = 1;
 int[] graphTopic = {4,7,8,25};
 PieChart chart = new PieChart(this);
+PFont font;
+PFont lillefont;
 
 
     public static void main(String[] args) { PApplet.main("landeogkatastrofer"); }
@@ -36,7 +39,8 @@ PieChart chart = new PieChart(this);
     public void setup() {
         table = loadTable("owid-covid-data.csv");
         data = new DataBroker(this, table );
-
+        font =createFont("WorkSans-ExtraBold.ttf",16);
+        lillefont = createFont("WorkSans-Medium.ttf",16);
         data.loadData();
         btnGernalfacts = new AlmindeligKnap(this, (width / 3)*2,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "general fackts");
         btnGraph =new AlmindeligKnap(this, 0,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "insert name");
@@ -73,7 +77,7 @@ PieChart chart = new PieChart(this);
 
     @Override
     public void draw() {
-
+        textFont(lillefont);
         clear();
         textSize(16);
         background(232, 244, 255);
@@ -83,9 +87,11 @@ PieChart chart = new PieChart(this);
         fill(232, 244, 255);
         rect(chosen[chosenshow].x, chosen[chosenshow].y,width / 3, height / 14);
         if(chosenshow ==0) {
+            textFont(lillefont);
             plot.draw();
             btnOptions.tegnKnap();
             if (btnOptions.klikket) {
+                textFont(lillefont);
                 year.tegnTextFlet();
                 day.tegnTextFlet();
                 mounths.tegnTextFlet();
@@ -98,11 +104,13 @@ PieChart chart = new PieChart(this);
 
             }
         } else if(chosenshow ==1){
+            textFont(font);
             textBox("WASH YOUR HANDS \nOR\nUSE HAND SANITISER",height/14);
             textBox("hello",(height/14)*2+ 250);
             textBox("hello",width-((height/14)*1+ 250));
             textBox("hello",width-((height/14)*2) - 500);
         } else if(chosenshow == 2){
+            textFont(font);
             fill(0);
             String gf= "Date: \n" +data.covidData.getString(data.covidData.getRowCount()-1,3) +"\n\nInfected: \n" + data.covidData.getString(data.covidData.getRowCount()-1,4) + "\n\nTotal death: \n" + data.covidData.getString(data.covidData.getRowCount()-1,7);
             textBox(gf,width-(height/14) - 250);
@@ -126,10 +134,11 @@ PieChart chart = new PieChart(this);
                     "\n-discolouration of \nfingers or toes",(height/14)+250);
 
         }
-
+        textFont(font);
         btnGernalfacts.tegnKnap();
         btnGraph.tegnKnap();
         btnAdvice.tegnKnap();
+        textFont(lillefont);
 
 
 
