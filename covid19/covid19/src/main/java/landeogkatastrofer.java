@@ -46,9 +46,10 @@ PImage logo,handtryk,hoste,kontakt,vaskhand;
         lillefont = createFont("WorkSans-Medium.ttf",16);
         data.loadData("Australia");
 
-        btnGernalfacts = new AlmindeligKnap(this, (width / 3)*2,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "general fackts");
-        btnGraph =new AlmindeligKnap(this, 0,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "insert name");
-        btnAdvice = new AlmindeligKnap(this, width / 3,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "advance");
+        btnGernalfacts = new AlmindeligKnap(this, (width / 3)*2,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "Information and news");
+        btnGraph =new AlmindeligKnap(this, 0,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14,
+                "Graph dashboard");
+        btnAdvice = new AlmindeligKnap(this, width / 3,(int) (height / 12  ) + (height / 12 +20)*1/2 , width / 3, height / 14, "Advice and guidelines");
         btnOptions = new ToggleKnap(this, 0,(int) (height / 12  ) + (height / 12 +20)*1/2 + height / 14, width / 3, height / 14, "Options");
 
         year = new TextFlet(this,  43, (int) (height / 12  ) + (height / 12 +20)*2,
