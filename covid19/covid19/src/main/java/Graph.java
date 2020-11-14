@@ -13,7 +13,7 @@ public abstract class Graph  {
     float yInt;
     int graphStart = 0;
     int colon;
-    ArrayList<Data> IndputList;
+
     boolean linesOn = true;
     Graph(PApplet app, int posX, int posY, int xSize, int ySize, int colon) {
         pApplet = app;
@@ -23,7 +23,7 @@ public abstract class Graph  {
         this.ySize = ySize;
         this.posX = posX;
         this.posY = posY;
-        this.IndputList = IndputList;
+
 
 
 

@@ -14,9 +14,9 @@ public class Axis {
     int maxY = Integer.MIN_VALUE;
     int minorTick ;
     int minorTickLength = 10;
-    ArrayList<Data> dataArrayList;
 
-    Axis(PApplet app, int x1 , int y1 , int x2 , int y2, boolean isyAxis, ArrayList<Data> dataArrayList,  float xInt, float yInt, int minorTick) {
+
+    Axis(PApplet app, int x1 , int y1 , int x2 , int y2, boolean isyAxis,Table table,  float xInt, float yInt, int minorTick) {
         pApplet = app;
         this.x1 = x1;
         this.x2 = x2;
@@ -28,7 +28,7 @@ public class Axis {
         this.minorTick = minorTick;
         this.isyAxis = isyAxis;
         this.table = table;
-        this.dataArrayList = dataArrayList;
+
 
 
     }
@@ -59,7 +59,7 @@ public class Axis {
             // Draw tick marks
             int yLow = y1 + minorTickLength/2;
             int yHi = y1 - minorTickLength/2;
-            for (int i=0; i<dataArrayList.size(); ++i) {
+            for (int i=0; i<table.getRowCount(); ++i) {
                 if (i % minorTick == 0) {
                     int x = x1 + (int) (xInt * i);
                     pApplet.line(x, yLow, x, yHi);

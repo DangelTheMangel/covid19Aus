@@ -15,8 +15,7 @@ public class Plot {
     int colon = 7;
     AlmindeligKnap btnShowProcGraph, btnShowBarCharts, btnShowLines;
 
-    public ArrayList<Data> Datalist = new ArrayList<Data>() ;
-    public ArrayList<Data> selectetContryList = new ArrayList<Data>();
+
     PillarChart pillarChart;
     String cName;
 
@@ -30,15 +29,15 @@ public class Plot {
         this.ySize = ySize;
         this.posX = posX;
         this.posY = posY;
-        Datalist.add(new Data("1",1,1));
+
         pillarChart = new PillarChart(p,this.posX, this.posY, this.xSize, this.ySize, colon);
         deathGraph = new ProcGraph(p,this.posX, this.posY, this.xSize, this.ySize, colon);
         btnShowProcGraph = new AlmindeligKnap(p,43, (int) (p.height / 12  ) + (p.height / 12 +20)*5, p.width / 12, p.height / 12, "Proc graph");
         btnShowBarCharts = new AlmindeligKnap(p,p.width/3-(p.width / 12 )-43
                 , (int) (p.height / 12  ) + (p.height / 12 +20)*5, p.width / 12, p.height / 12, "Bar charts");
         btnShowLines = new AlmindeligKnap(p,43, (int) (p.height / 12  ) + (p.height / 12 +20)*6, p.width / 12, p.height / 12,"Turn off \nlines");
-        xAxis = new Axis (p, this.posX , this.posY + this.ySize, this.posX + this.xSize, this.posY + this.ySize, false, Datalist, deathGraph.xInt, deathGraph.yInt , 5);
-        yAxis = new Axis (p, this.posX , posY + ySize , posX, posY, true, Datalist, deathGraph.xInt, deathGraph.yInt, 50000);
+        xAxis = new Axis (p, this.posX , this.posY + this.ySize, this.posX + this.xSize, this.posY + this.ySize, false, dataBroker.covidData ,deathGraph.xInt,deathGraph.yInt  , 5);
+        yAxis = new Axis (p, this.posX , posY + ySize , posX, posY, true, dataBroker.covidData ,deathGraph.xInt ,deathGraph.yInt, 50000);
         btnShowProcGraph.klikket = true;
         //btnShowBarCharts.klikket = true;
     }
@@ -52,7 +51,7 @@ public class Plot {
         if(btnShowProcGraph.klikket){
             xAxis.maxY = deathGraph.maxY;
             yAxis.maxY = deathGraph.maxY;
-            deathGraph.IndputList = selectetContryList;
+
             p.fill(255);
             p.rect(posX, posY - 10, xSize + 10 , ySize + 10);
             p.stroke(0);
@@ -73,7 +72,7 @@ public class Plot {
             p.rect(posX, posY - 10, xSize + 10 , ySize + 10);
             p.stroke(0);
             p.fill(0);
-            pillarChart.drawPillarChart(selectetContryList,cName);
+            pillarChart.drawPillarChart(cName);
             xAxis.draw();
             yAxis.draw();
             checkMouseCoordinates();
@@ -88,24 +87,9 @@ public class Plot {
         p.textSize(16);
     }
 
-    public void setArraylist(ArrayList<Data> IndputList, String countryName){
-        if(IndputList == null){} else{
-           selectetContryList.clear();
-        }
 
 
-        Datalist = IndputList;
 
-        for(int i = 0; i < Datalist.size(); ++i) {
-            Data data = Datalist.get(i);
-             if(countryName.equalsIgnoreCase(data.name)) {
-                Data input = Datalist.get(i);
-                selectetContryList.add(new Data(data.name, data.Year, data.Death));
-                cName = countryName;
-
-            }
-        }
-    }
 
     public void clicked(float mx, float my){
 

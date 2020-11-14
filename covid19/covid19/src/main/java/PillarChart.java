@@ -21,7 +21,7 @@ public class PillarChart {
         this.posY = posY;
     }
 
-    void drawPillarChart(ArrayList<Data> inputlist, String Name){
+    void drawPillarChart( String Name){
        int x2;
         for (int i=graphStart; i<table.getRowCount(); ++i) {
 

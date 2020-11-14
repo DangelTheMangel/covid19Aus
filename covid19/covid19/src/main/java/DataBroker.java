@@ -9,7 +9,7 @@ public class DataBroker<data> extends PApplet {
     Table data;
     Table covidData = new Table();
 
-    public ArrayList<Data> Datalist = new ArrayList<Data>();
+
 
     DataBroker(PApplet p, Table data) {
         this.p = p;
