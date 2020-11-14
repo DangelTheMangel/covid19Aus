@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PVector;
 import processing.data.Table;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class Plot {
     PillarChart pillarChart;
     String cName;
 
+    PVector colorBigbtn = new PVector(143, 182, 217),colorSmallbrn = new PVector(242, 242, 242), colorMediumBtn = new PVector(204, 211, 217);
+
     Plot(PApplet app, int posX, int posY, int xSize, int ySize, DataBroker dataBroker){
         p = app;
         this.dataBroker = dataBroker;
@@ -30,9 +33,10 @@ public class Plot {
         Datalist.add(new Data("1",1,1));
         pillarChart = new PillarChart(p,this.posX, this.posY, this.xSize, this.ySize, colon);
         deathGraph = new ProcGraph(p,this.posX, this.posY, this.xSize, this.ySize, colon);
-        btnShowProcGraph = new AlmindeligKnap(p,p.width / 24, (int) (p.height / 12  ) + (p.height / 12 +20)*5, p.width / 12, p.height / 12, "Proc graph");
-        btnShowBarCharts = new AlmindeligKnap(p,p.width / 24 + (p.width / 12 +10)*2, (int) (p.height / 12  ) + (p.height / 12 +20)*5, p.width / 12, p.height / 12, "Bar charts");
-        btnShowLines = new AlmindeligKnap(p,p.width / 24, (int) (p.height / 12  ) + (p.height / 12 +20)*6, p.width / 12, p.height / 12,"Turn off \nlines");
+        btnShowProcGraph = new AlmindeligKnap(p,43, (int) (p.height / 12  ) + (p.height / 12 +20)*5, p.width / 12, p.height / 12, "Proc graph");
+        btnShowBarCharts = new AlmindeligKnap(p,p.width/3-(p.width / 12 )-43
+                , (int) (p.height / 12  ) + (p.height / 12 +20)*5, p.width / 12, p.height / 12, "Bar charts");
+        btnShowLines = new AlmindeligKnap(p,43, (int) (p.height / 12  ) + (p.height / 12 +20)*6, p.width / 12, p.height / 12,"Turn off \nlines");
         xAxis = new Axis (p, this.posX , this.posY + this.ySize, this.posX + this.xSize, this.posY + this.ySize, false, Datalist, deathGraph.xInt, deathGraph.yInt , 5);
         yAxis = new Axis (p, this.posX , posY + ySize , posX, posY, true, Datalist, deathGraph.xInt, deathGraph.yInt, 50000);
         btnShowProcGraph.klikket = true;
@@ -41,10 +45,10 @@ public class Plot {
 
     void  draw(String s){
 
-        p.fill(191, 223, 255);
+        p.fill(242, 242, 242);
         p.rect(posX  - 50, posY - 100, xSize + 100, ySize + 270 );
 
-        p.fill(191, 223, 255);
+        p.fill(242, 242, 242);
         if(btnShowProcGraph.klikket){
             xAxis.maxY = deathGraph.maxY;
             yAxis.maxY = deathGraph.maxY;
@@ -78,7 +82,7 @@ public class Plot {
 
 
 
-        p.fill(255);
+        p.fill(41, 61, 82);
         p.textSize(20);
         p.text("Graph Shows: "+s,posX+xSize/2-p.textWidth(s),posY-32);
         p.textSize(16);
@@ -197,15 +201,15 @@ public class Plot {
 
     void drawBtN(){
         if(btnShowProcGraph.klikket){
-            btnShowLines.tegnKnap();
+            btnShowLines.tegnKnap(colorSmallbrn);
             if(btnShowLines.klikket){
                 deathGraph.linesOn = !deathGraph.linesOn;
                 btnShowLines.registrerRelease();
             }
         }
 
-        btnShowProcGraph.tegnKnap();
-        btnShowBarCharts.tegnKnap();
+        btnShowProcGraph.tegnKnap(colorSmallbrn);
+        btnShowBarCharts.tegnKnap(colorSmallbrn);
 
     }
     }

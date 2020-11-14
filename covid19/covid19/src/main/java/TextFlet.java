@@ -40,15 +40,15 @@ public class TextFlet {
     void tegnTextFlet() {
         p.stroke(1, 46, 74, 100);
         if(klikket){
-            p.fill(227, 225, 252, 250);
+            p.fill(78, 111, 145);
         } else {
-            p.fill(200);
+            p.fill(242, 242, 242);
         }
 
 
         p.rect(positionX, positionY, sizeX, sizeY);
 
-        p.fill(0);
+        p.fill(41, 61, 82);
         p.textSize(16);
         p.text(indput, positionX +(sizeX/16), positionY + (sizeY/2));
         p.text(textFletNavn,positionX, positionY);

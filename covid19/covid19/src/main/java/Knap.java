@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public abstract class Knap {
     //variabler
@@ -30,18 +31,18 @@ public abstract class Knap {
     }
 
     void setTekst(String tekst) {
-        p.fill(0);
+        p.fill(41, 61, 82);
 
         p.text(tekst, positionX +(sizeX/16), positionY + (sizeY/2));
 
     }
 
-    void tegnKnap() {
+    void tegnKnap(PVector color) {
         p.stroke(1, 46, 74, 100);
         if(klikket){
-            p.fill(255);
+            p.fill(color.x,color.y,color.z);
         }else{
-            p.fill(200,200,200,100);
+            p.fill(color.x-20,color.y-20,color.z-20);
         }
 
         p.rect(positionX, positionY, sizeX, sizeY);
