@@ -160,16 +160,17 @@ PImage logo,handtryk,hoste,kontakt,vaskhand;
                 }
             }
             textBox("REMEMBER\n\n" + news[newsInt], width - ((height / 14) * 2) - 500,false,kontakt);
-            textBox("MOST COMMON SYMPTOMS: \n\n-fever\n \n-dry\n \n-cough\n \n-tiredness\n", (height / 14),false,kontakt);
-            textBox("LESS COMMON SYMPTOMS:\n\n-aches and pains\n" +
-                    "\n-sore throat\n" +
-                    "\n-diarrhoea\n" +
-                    "\n-conjunctivitis\n" +
-                    "\n-headache\n" +
-                    "\n-loss of taste or smell\n" +
-                    "\n-a rash on skin\n  "
+            textBox("MOST COMMON SYMPTOMS: \n\n-Fever\n \n-Dry coughs\n \n-Tiredness\n", (height / 14),false,kontakt);
+            textBox("LESS COMMON SYMPTOMS:\n" +
+                    "\n-Aches and pains\n" +
+                    "\n-Sore throat\n" +
+                    "\n-Diarrhea\n" +
+                    "\n-Conjunctivitis\n" +
+                    "\n-Headache\n" +
+                    "\n-Loss of taste or smell\n" +
+                    "\n-Rashes\n  "
                     +
-                    "\n-discolouration of \nfingers or toes", (height / 14) + 250,false,kontakt);
+                    "\n-Discoloration of \nfingers or toes", (height / 14) + 250,false,kontakt);
 
         }
         textFont(font);
